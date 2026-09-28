@@ -13,27 +13,27 @@ export const INITIAL_SERMONS = [
   },
   {
     id: 'sermon-2',
-    title: 'Walking in Divine Dominion',
-    speaker: 'Pastor David Tizo',
-    series: 'Kingdom Dominion',
-    date: '2026-09-21',
-    videoUrl: 'https://www.youtube.com/embed/d86xD-j6bQ8',
-    thumbnail: 'images/lead_pastor.jpg',
-    description: 'Discover what it means to step into your God-given authority and walk in purpose, victory, and unshakable faith every single day.',
-    duration: '48 mins',
-    tags: ['Faith', 'Authority', 'Victory']
-  },
-  {
-    id: 'sermon-3',
     title: 'The Power of Unshakable Faith',
     speaker: 'Pastor Grace Tizo',
     series: 'Foundations of Victory',
-    date: '2026-09-14',
-    videoUrl: 'https://www.youtube.com/embed/d86xD-j6bQ8',
-    thumbnail: 'images/worship_hands_raised.jpg',
-    description: 'When trials arise, faith stands tall. Learn how anchoring your heart in God’s promises transforms uncertainty into breakthrough.',
-    duration: '42 mins',
+    date: '2026-09-20',
+    videoUrl: 'https://www.youtube.com/embed/1ss-ccxQi9g',
+    thumbnail: 'https://img.youtube.com/vi/1ss-ccxQi9g/hqdefault.jpg',
+    description: 'When trials arise, faith stands tall. Learn how anchoring your heart in God’s promises transforms uncertainty into supernatural breakthrough.',
+    duration: '48 mins',
     tags: ['Faith', 'Hope', 'Encouragement']
+  },
+  {
+    id: 'sermon-3',
+    title: 'Walking in Divine Dominion',
+    speaker: 'Pastor David Tizo',
+    series: 'Kingdom Dominion',
+    date: '2026-09-13',
+    videoUrl: 'https://www.youtube.com/embed/d86xD-j6bQ8',
+    thumbnail: 'images/lead_pastor.jpg',
+    description: 'Discover what it means to step into your God-given authority and walk in purpose, victory, and unshakable faith every single day.',
+    duration: '45 mins',
+    tags: ['Faith', 'Authority', 'Victory']
   },
   {
     id: 'sermon-4',
@@ -177,7 +177,7 @@ export const INITIAL_GIVING_LOG = [
 export const INITIAL_SETTINGS = {
   churchName: 'The Tizo Nation Church',
   tagline: 'A Vibrant Community Passionate About Leading People to Divine Purpose',
-  announcement: '✨ Featured Message: "Giving Leverage" by Pastor David Tizo is now available in our Sermon Library!',
+  announcement: '✨ New Message Added: "The Power of Unshakable Faith" is now live in our Sermon Library!',
   serviceTimes: [
     { day: 'Sunday Morning Service', time: '9:00 AM & 11:00 AM', location: 'Main Sanctuary' },
     { day: 'Wednesday Midweek Bible Study', time: '6:30 PM', location: 'Fellowship Hall & Online' },

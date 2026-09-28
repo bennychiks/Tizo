@@ -17,7 +17,11 @@ export const ChurchProvider = ({ children }) => {
     if (saved) {
       const parsed = JSON.parse(saved)
       // Ensure 'sermon-1' Giving Leverage points to user's YouTube link https://www.youtube.com/embed/d86xD-j6bQ8
-      return parsed.map(s => s.id === 'sermon-1' ? { ...s, videoUrl: 'https://www.youtube.com/embed/d86xD-j6bQ8', title: 'Giving Leverage' } : s)
+      return parsed.map(s => {
+        if (s.id === 'sermon-1') return { ...s, videoUrl: 'https://www.youtube.com/embed/d86xD-j6bQ8', title: 'Giving Leverage' }
+        if (s.id === 'sermon-2') return { ...s, videoUrl: 'https://www.youtube.com/embed/1ss-ccxQi9g', thumbnail: 'https://img.youtube.com/vi/1ss-ccxQi9g/hqdefault.jpg', title: 'The Power of Unshakable Faith' }
+        return s
+      })
     }
     return INITIAL_SERMONS
   })
