@@ -125,6 +125,11 @@ export const ChurchProvider = ({ children }) => {
     showToast('Sermon published successfully!')
   }
 
+  const updateSermon = (updatedSermon) => {
+    setSermons(sermons.map(s => s.id === updatedSermon.id ? updatedSermon : s))
+    showToast('Sermon updated successfully!')
+  }
+
   const deleteSermon = (id) => {
     setSermons(sermons.filter(s => s.id !== id))
     showToast('Sermon deleted.')
@@ -204,6 +209,7 @@ export const ChurchProvider = ({ children }) => {
       loginAdmin,
       logoutAdmin,
       addSermon,
+      updateSermon,
       deleteSermon,
       addEvent,
       deleteEvent,

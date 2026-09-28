@@ -5,6 +5,7 @@ import {
   X,
   LogOut,
   Trash2,
+  Edit3,
   Video,
   Calendar,
   Heart,
@@ -24,6 +25,7 @@ export default function AdminDashboard() {
     logoutAdmin,
     sermons,
     addSermon,
+    updateSermon,
     deleteSermon,
     events,
     addEvent,
@@ -39,6 +41,7 @@ export default function AdminDashboard() {
 
   const [passcode, setPasscode] = useState('')
   const [activeTab, setActiveTab] = useState('overview')
+  const [editingSermonId, setEditingSermonId] = useState(null)
 
   const [newSermon, setNewSermon] = useState({
     title: '',
@@ -71,17 +74,80 @@ export default function AdminDashboard() {
     }
   }
 
-  const handleCreateSermon = (e) => {
+  const handleSaveSermon = (e) => {
     e.preventDefault()
     if (!newSermon.title) return
-    addSermon(newSermon)
+
+    // Standardize YouTube URLs if needed
+    let formattedUrl = newSermon.videoUrl || ''
+    if (formattedUrl.includes('youtu.be/')) {
+      const id = formattedUrl.split('youtu.be/')[1]?.split('?')[0]
+      if (id) formattedUrl = `https://www.youtube.com/embed/${id}`
+    } else if (formattedUrl.includes('youtube.com/watch')) {
+      try {
+        const urlObj = new URL(formattedUrl)
+        const id = urlObj.searchParams.get('v')
+        if (id) formattedUrl = `https://www.youtube.com/embed/${id}`
+      } catch (err) {
+        // fallback keep original string
+      }
+    }
+
+    // Auto update thumbnail if YouTube ID found
+    let formattedThumbnail = newSermon.thumbnail
+    const ytMatch = formattedUrl.match(/(?:youtube\.com\/embed\/)([\w-]{11})/)
+    if (ytMatch && ytMatch[1]) {
+      formattedThumbnail = `https://img.youtube.com/vi/${ytMatch[1]}/hqdefault.jpg`
+    }
+
+    const sermonPayload = {
+      ...newSermon,
+      videoUrl: formattedUrl,
+      thumbnail: formattedThumbnail || 'images/lead_pastor.jpg'
+    }
+
+    if (editingSermonId) {
+      updateSermon({ ...sermonPayload, id: editingSermonId })
+      setEditingSermonId(null)
+    } else {
+      addSermon(sermonPayload)
+    }
+
     setNewSermon({
       title: '',
       speaker: 'Pastor David Tizo',
       series: 'Kingdom Faith',
       date: new Date().toISOString().split('T')[0],
-      videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-      thumbnail: 'https://images.unsplash.com/photo-1438232992991-995b7058bbb3?auto=format&fit=crop&w=800&q=80',
+      videoUrl: 'https://www.youtube.com/embed/d86xD-j6bQ8',
+      thumbnail: 'images/lead_pastor.jpg',
+      description: '',
+      duration: '45 mins'
+    })
+  }
+
+  const handleStartEditSermon = (sermon) => {
+    setEditingSermonId(sermon.id)
+    setNewSermon({
+      title: sermon.title || '',
+      speaker: sermon.speaker || 'Pastor David Tizo',
+      series: sermon.series || '',
+      date: sermon.date || new Date().toISOString().split('T')[0],
+      videoUrl: sermon.videoUrl || '',
+      thumbnail: sermon.thumbnail || '',
+      description: sermon.description || '',
+      duration: sermon.duration || '45 mins'
+    })
+  }
+
+  const handleCancelEditSermon = () => {
+    setEditingSermonId(null)
+    setNewSermon({
+      title: '',
+      speaker: 'Pastor David Tizo',
+      series: 'Kingdom Faith',
+      date: new Date().toISOString().split('T')[0],
+      videoUrl: 'https://www.youtube.com/embed/d86xD-j6bQ8',
+      thumbnail: 'images/lead_pastor.jpg',
       description: '',
       duration: '45 mins'
     })
@@ -271,32 +337,117 @@ export default function AdminDashboard() {
                 <div>
                   <h3 style={{ fontSize: '1.5rem', color: '#FFFFFF', marginBottom: '20px' }}>Manage Sermons</h3>
 
-                  <form onSubmit={handleCreateSermon} className="glass-card" style={{ padding: '24px', marginBottom: '32px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                    <h4 style={{ color: '#60A5FA' }}>+ Publish New Sermon Video</h4>
+                  <form onSubmit={handleSaveSermon} className="glass-card" style={{ padding: '24px', marginBottom: '32px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <h4 style={{ color: editingSermonId ? '#F59E0B' : '#60A5FA', margin: 0 }}>
+                        {editingSermonId ? '✏️ Edit Sermon Video Details' : '+ Publish New Sermon Video'}
+                      </h4>
+                      {editingSermonId && (
+                        <span style={{ fontSize: '0.8rem', background: 'rgba(245, 158, 11, 0.2)', color: '#F59E0B', padding: '4px 10px', borderRadius: '12px', fontWeight: 600 }}>
+                          Editing ID: {editingSermonId}
+                        </span>
+                      )}
+                    </div>
+
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
-                      <input type="text" required placeholder="Sermon Title *" value={newSermon.title} onChange={e => setNewSermon({ ...newSermon, title: e.target.value })} style={inputStyle} />
-                      <input type="text" required placeholder="Speaker *" value={newSermon.speaker} onChange={e => setNewSermon({ ...newSermon, speaker: e.target.value })} style={inputStyle} />
+                      <div>
+                        <label style={labelStyle}>Sermon Title *</label>
+                        <input type="text" required placeholder="Sermon Title *" value={newSermon.title} onChange={e => setNewSermon({ ...newSermon, title: e.target.value })} style={inputStyle} />
+                      </div>
+                      <div>
+                        <label style={labelStyle}>Speaker *</label>
+                        <input type="text" required placeholder="Speaker *" value={newSermon.speaker} onChange={e => setNewSermon({ ...newSermon, speaker: e.target.value })} style={inputStyle} />
+                      </div>
                     </div>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
-                      <input type="text" placeholder="Series Name" value={newSermon.series} onChange={e => setNewSermon({ ...newSermon, series: e.target.value })} style={inputStyle} />
-                      <input type="date" value={newSermon.date} onChange={e => setNewSermon({ ...newSermon, date: e.target.value })} style={inputStyle} />
-                      <input type="text" placeholder="Duration (e.g. 45 mins)" value={newSermon.duration} onChange={e => setNewSermon({ ...newSermon, duration: e.target.value })} style={inputStyle} />
+                      <div>
+                        <label style={labelStyle}>Series Name</label>
+                        <input type="text" placeholder="Series Name" value={newSermon.series} onChange={e => setNewSermon({ ...newSermon, series: e.target.value })} style={inputStyle} />
+                      </div>
+                      <div>
+                        <label style={labelStyle}>Preach Date</label>
+                        <input type="date" value={newSermon.date} onChange={e => setNewSermon({ ...newSermon, date: e.target.value })} style={inputStyle} />
+                      </div>
+                      <div>
+                        <label style={labelStyle}>Duration</label>
+                        <input type="text" placeholder="Duration (e.g. 45 mins)" value={newSermon.duration} onChange={e => setNewSermon({ ...newSermon, duration: e.target.value })} style={inputStyle} />
+                      </div>
                     </div>
-                    <input type="text" placeholder="YouTube Embed URL (e.g. https://www.youtube.com/embed/...)" value={newSermon.videoUrl} onChange={e => setNewSermon({ ...newSermon, videoUrl: e.target.value })} style={inputStyle} />
-                    <textarea rows="2" placeholder="Brief Sermon Description..." value={newSermon.description} onChange={e => setNewSermon({ ...newSermon, description: e.target.value })} style={inputStyle}></textarea>
-                    <button type="submit" className="btn-primary" style={{ alignSelf: 'flex-start' }}>Publish Sermon</button>
+                    <div>
+                      <label style={labelStyle}>YouTube URL or Embed Link</label>
+                      <input type="text" placeholder="e.g. https://youtu.be/1ss-ccxQi9g or https://www.youtube.com/embed/1ss-ccxQi9g" value={newSermon.videoUrl} onChange={e => setNewSermon({ ...newSermon, videoUrl: e.target.value })} style={inputStyle} />
+                    </div>
+                    <div>
+                      <label style={labelStyle}>Brief Description</label>
+                      <textarea rows="2" placeholder="Brief Sermon Description..." value={newSermon.description} onChange={e => setNewSermon({ ...newSermon, description: e.target.value })} style={inputStyle}></textarea>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '12px' }}>
+                      <button type="submit" className="btn-primary">
+                        {editingSermonId ? 'Save & Update Sermon' : 'Publish Sermon'}
+                      </button>
+                      {editingSermonId && (
+                        <button type="button" onClick={handleCancelEditSermon} className="btn-secondary">
+                          Cancel Edit
+                        </button>
+                      )}
+                    </div>
                   </form>
 
+                  <h4 style={{ color: '#FFFFFF', marginBottom: '16px', fontSize: '1.1rem' }}>Uploaded Sermons ({sermons.length})</h4>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                     {sermons.map(s => (
-                      <div key={s.id} className="glass-card" style={{ padding: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <div>
-                          <h5 style={{ fontSize: '1.1rem', color: '#FFFFFF' }}>{s.title}</h5>
-                          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{s.speaker} • {s.series} • {s.date}</span>
+                      <div key={s.id} className="glass-card" style={{ padding: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderLeft: editingSermonId === s.id ? '4px solid #F59E0B' : '1px solid var(--border-color)' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                          <img 
+                            src={s.thumbnail || 'images/lead_pastor.jpg'} 
+                            alt={s.title}
+                            style={{ width: '70px', height: '48px', objectFit: 'cover', borderRadius: 'var(--radius-sm)' }}
+                            onError={(e) => { e.target.src = 'images/lead_pastor.jpg' }}
+                          />
+                          <div>
+                            <h5 style={{ fontSize: '1.05rem', color: '#FFFFFF', margin: 0 }}>{s.title}</h5>
+                            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{s.speaker} • {s.series} • {s.date}</span>
+                          </div>
                         </div>
-                        <button onClick={() => deleteSermon(s.id)} style={{ background: 'rgba(239, 68, 68, 0.2)', color: '#EF4444', border: 'none', padding: '8px 12px', borderRadius: 'var(--radius-sm)', cursor: 'pointer' }}>
-                          <Trash2 size={16} /> Delete
-                        </button>
+
+                        <div style={{ display: 'flex', gap: '8px' }}>
+                          <button
+                            onClick={() => handleStartEditSermon(s)}
+                            style={{
+                              background: 'rgba(37, 99, 235, 0.25)',
+                              color: '#60A5FA',
+                              border: 'none',
+                              padding: '8px 14px',
+                              borderRadius: 'var(--radius-sm)',
+                              cursor: 'pointer',
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '6px',
+                              fontWeight: 600,
+                              fontSize: '0.85rem'
+                            }}
+                          >
+                            <Edit3 size={15} /> Edit
+                          </button>
+                          <button
+                            onClick={() => deleteSermon(s.id)}
+                            style={{
+                              background: 'rgba(239, 68, 68, 0.2)',
+                              color: '#EF4444',
+                              border: 'none',
+                              padding: '8px 14px',
+                              borderRadius: 'var(--radius-sm)',
+                              cursor: 'pointer',
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '6px',
+                              fontSize: '0.85rem'
+                            }}
+                          >
+                            <Trash2 size={15} /> Delete
+                          </button>
+                        </div>
                       </div>
                     ))}
                   </div>
