@@ -58,36 +58,36 @@ export default function Navbar() {
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
         borderBottom: '1px solid rgba(59, 130, 246, 0.25)',
-        padding: '14px 5%',
+        padding: '12px 5%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between'
       }}>
-        {/* Brand Logo Container with Blend & Glow */}
+        {/* Brand Logo Container */}
         <div 
           onClick={() => scrollToSection('hero')} 
           style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
           title="The Tizo Nation Church"
         >
           <div style={{
-            background: 'rgba(255, 255, 255, 0.05)',
+            background: 'rgba(255, 255, 255, 0.04)',
             padding: '6px 14px',
             borderRadius: 'var(--radius-md)',
-            border: '1px solid rgba(255, 255, 255, 0.12)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
             display: 'flex',
             alignItems: 'center',
-            boxShadow: '0 0 20px rgba(59, 130, 246, 0.2)'
+            boxShadow: '0 0 16px rgba(59, 130, 246, 0.18)'
           }}>
             <img 
               src="/logo.png" 
               alt="The Tizo Nation Church Logo" 
               style={{ 
-                height: '64px', 
-                maxWidth: '260px',
+                height: '46px', 
+                maxWidth: '280px',
                 width: 'auto', 
                 objectFit: 'contain',
                 mixBlendMode: 'screen',
-                filter: 'brightness(1.2) contrast(1.1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5))',
+                filter: 'brightness(1.25) contrast(1.1) drop-shadow(0 0 8px rgba(255, 255, 255, 0.4))',
                 display: 'block'
               }}
             />
@@ -185,7 +185,7 @@ export default function Navbar() {
             <img 
               src="/logo.png" 
               alt="The Tizo Nation Church Logo" 
-              style={{ height: '54px', mixBlendMode: 'screen', filter: 'brightness(1.2)' }}
+              style={{ height: '48px', mixBlendMode: 'screen', filter: 'brightness(1.2)' }}
             />
           </div>
 

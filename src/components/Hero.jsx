@@ -33,7 +33,7 @@ export default function Hero() {
   }, [])
 
   return (
-    <section id="hero" style={{ position: 'relative', overflow: 'hidden', minHeight: '90vh', display: 'flex', alignItems: 'center' }}>
+    <section id="hero" style={{ position: 'relative', overflow: 'hidden', minHeight: '88vh', display: 'flex', alignItems: 'center' }}>
       {/* Background Image Overlay */}
       <div style={{
         position: 'absolute',
@@ -55,30 +55,10 @@ export default function Hero() {
       <div className="section-padding" style={{ position: 'relative', zIndex: 10, width: '100%', paddingTop: '60px', paddingBottom: '60px' }}>
         <div style={{ maxWidth: '880px' }}>
           
-          {/* Featured Prominent Logo Header */}
-          <div style={{ marginBottom: '28px', display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
-            <div style={{
-              background: 'rgba(255, 255, 255, 0.08)',
-              padding: '10px 20px',
-              borderRadius: 'var(--radius-md)',
-              border: '1px solid rgba(255, 255, 255, 0.18)',
-              boxShadow: '0 8px 30px rgba(59, 130, 246, 0.35)'
-            }}>
-              <img 
-                src="/logo.png" 
-                alt="The Tizo Nation Church Logo" 
-                style={{ 
-                  height: '75px', 
-                  maxWidth: '320px',
-                  width: 'auto',
-                  objectFit: 'contain',
-                  mixBlendMode: 'screen',
-                  filter: 'brightness(1.25) contrast(1.15) drop-shadow(0 0 12px rgba(255, 255, 255, 0.6))',
-                  display: 'block'
-                }}
-              />
-            </div>
-            <span className="badge-blue" style={{ fontSize: '0.85rem' }}>Welcome Home</span>
+          {/* Top Tagline Badge */}
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
+            <span className="badge-blue">Welcome Home</span>
+            <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>• The Tizo Nation Experience</span>
           </div>
 
           {/* Main Hero Headline */}
