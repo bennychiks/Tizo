@@ -1,6 +1,12 @@
 import React, { useState } from 'react'
 import { useChurch } from '../context/ChurchContext'
-import { Play, Search, User } from 'lucide-react'
+import { Play, Search, User, ExternalLink } from 'lucide-react'
+
+const parseYouTubeVideoId = (url) => {
+  if (!url) return 'd86xD-j6bQ8'
+  const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/)
+  return match ? match[1] : 'd86xD-j6bQ8'
+}
 
 export default function SermonSection() {
   const { sermons, setSelectedSermon, setActiveModal } = useChurch()
@@ -31,7 +37,7 @@ export default function SermonSection() {
             <span className="section-subtitle">Media & Messages</span>
             <h2 className="section-title">Sermon Library</h2>
             <p className="section-desc" style={{ marginBottom: 0 }}>
-              Be inspired by life-transforming messages from Pastor Chris Amaechi and guest speakers.
+              Be inspired by life-transforming messages from Pastor David Tizo and guest speakers.
             </p>
           </div>
 
@@ -89,97 +95,113 @@ export default function SermonSection() {
           </div>
         ) : (
           <div className="grid-3">
-            {filteredSermons.map(sermon => (
-              <div key={sermon.id} className="glass-card" style={{ overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-                {/* Thumbnail Header */}
-                <div style={{ position: 'relative', height: '200px', cursor: 'pointer' }} onClick={() => watchSermon(sermon)}>
-                  <img 
-                    src={sermon.thumbnail || 'https://images.unsplash.com/photo-1438232992991-995b7058bbb3?auto=format&fit=crop&w=800&q=80'} 
-                    alt={sermon.title} 
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  />
-                  <div style={{
-                    position: 'absolute',
-                    inset: 0,
-                    background: 'rgba(6, 11, 24, 0.45)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    transition: 'background 0.2s'
-                  }}>
+            {filteredSermons.map(sermon => {
+              const videoId = parseYouTubeVideoId(sermon.videoUrl)
+              const directWatchUrl = `https://www.youtube.com/watch?v=${videoId}`
+
+              return (
+                <div key={sermon.id} className="glass-card" style={{ overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+                  {/* Thumbnail Header */}
+                  <div style={{ position: 'relative', height: '200px', cursor: 'pointer' }} onClick={() => watchSermon(sermon)}>
+                    <img 
+                      src={sermon.thumbnail || `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`} 
+                      alt={sermon.title} 
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
                     <div style={{
-                      width: '56px',
-                      height: '56px',
-                      borderRadius: '50%',
-                      background: 'var(--primary-blue)',
-                      color: '#FFFFFF',
+                      position: 'absolute',
+                      inset: 0,
+                      background: 'rgba(6, 11, 24, 0.45)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      boxShadow: '0 0 24px rgba(37, 99, 235, 0.6)'
+                      transition: 'background 0.2s'
                     }}>
-                      <Play size={24} fill="#FFFFFF" style={{ marginLeft: '4px' }} />
-                    </div>
-                  </div>
-
-                  {sermon.duration && (
-                    <span style={{
-                      position: 'absolute',
-                      bottom: '12px',
-                      right: '12px',
-                      background: 'rgba(0,0,0,0.85)',
-                      color: '#FFFFFF',
-                      fontSize: '0.75rem',
-                      padding: '3px 8px',
-                      borderRadius: '4px',
-                      fontWeight: 600
-                    }}>
-                      {sermon.duration}
-                    </span>
-                  )}
-                </div>
-
-                {/* Sermon Body Content */}
-                <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'space-between' }}>
-                  <div>
-                    <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '8px' }}>
-                      <span className="badge-blue" style={{ fontSize: '0.7rem' }}>{sermon.series}</span>
-                      <span style={{ color: 'var(--text-subtle)', fontSize: '0.8rem' }}>{sermon.date}</span>
-                    </div>
-
-                    <h3 style={{ fontSize: '1.2rem', color: '#FFFFFF', marginBottom: '8px', lineHeight: 1.3 }}>
-                      {sermon.title}
-                    </h3>
-                    <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', marginBottom: '16px', lineHeight: 1.5, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                      {sermon.description}
-                    </p>
-                  </div>
-
-                  <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <span style={{ fontSize: '0.85rem', color: 'var(--text-light)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <User size={14} color="#60A5FA" /> {sermon.speaker}
-                    </span>
-
-                    <button 
-                      onClick={() => watchSermon(sermon)}
-                      style={{
-                        background: 'none',
-                        border: 'none',
-                        color: '#60A5FA',
-                        fontWeight: 700,
-                        fontSize: '0.85rem',
-                        cursor: 'pointer',
+                      <div style={{
+                        width: '56px',
+                        height: '56px',
+                        borderRadius: '50%',
+                        background: 'var(--primary-blue)',
+                        color: '#FFFFFF',
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '4px'
-                      }}
-                    >
-                      Watch <Play size={12} fill="currentColor" />
-                    </button>
+                        justifyContent: 'center',
+                        boxShadow: '0 0 24px rgba(37, 99, 235, 0.6)'
+                      }}>
+                        <Play size={24} fill="#FFFFFF" style={{ marginLeft: '4px' }} />
+                      </div>
+                    </div>
+
+                    {sermon.duration && (
+                      <span style={{
+                        position: 'absolute',
+                        bottom: '12px',
+                        right: '12px',
+                        background: 'rgba(0,0,0,0.85)',
+                        color: '#FFFFFF',
+                        fontSize: '0.75rem',
+                        padding: '3px 8px',
+                        borderRadius: '4px',
+                        fontWeight: 600
+                      }}>
+                        {sermon.duration}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Sermon Body Content */}
+                  <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'space-between' }}>
+                    <div>
+                      <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '8px' }}>
+                        <span className="badge-blue" style={{ fontSize: '0.7rem' }}>{sermon.series}</span>
+                        <span style={{ color: 'var(--text-subtle)', fontSize: '0.8rem' }}>{sermon.date}</span>
+                      </div>
+
+                      <h3 style={{ fontSize: '1.2rem', color: '#FFFFFF', marginBottom: '8px', lineHeight: 1.3 }}>
+                        {sermon.title}
+                      </h3>
+                      <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', marginBottom: '16px', lineHeight: 1.5, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                        {sermon.description}
+                      </p>
+                    </div>
+
+                    <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}>
+                      <span style={{ fontSize: '0.85rem', color: 'var(--text-light)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <User size={14} color="#60A5FA" /> {sermon.speaker}
+                      </span>
+
+                      <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                        <a 
+                          href={directWatchUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          title="Watch on YouTube site"
+                          style={{ color: '#60A5FA', padding: '4px' }}
+                        >
+                          <ExternalLink size={16} />
+                        </a>
+                        <button 
+                          onClick={() => watchSermon(sermon)}
+                          style={{
+                            background: 'none',
+                            border: 'none',
+                            color: '#60A5FA',
+                            fontWeight: 700,
+                            fontSize: '0.85rem',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '4px'
+                          }}
+                        >
+                          Watch <Play size={12} fill="currentColor" />
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         )}
       </div>

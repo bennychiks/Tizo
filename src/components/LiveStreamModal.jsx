@@ -1,6 +1,12 @@
 import React, { useState } from 'react'
 import { useChurch } from '../context/ChurchContext'
-import { X, Heart, MessageSquare, Send } from 'lucide-react'
+import { X, Heart, MessageSquare, Send, ExternalLink } from 'lucide-react'
+
+const parseYouTubeVideoId = (url) => {
+  if (!url) return 'd86xD-j6bQ8'
+  const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/)
+  return match ? match[1] : 'd86xD-j6bQ8'
+}
 
 export default function LiveStreamModal() {
   const { activeModal, setActiveModal, selectedSermon, settings } = useChurch()
@@ -8,12 +14,15 @@ export default function LiveStreamModal() {
   const [chatList, setChatList] = useState([
     { id: 1, user: 'Sister Angela', text: 'Amen! Watching live from Houston!' },
     { id: 2, user: 'Deacon Mark', text: 'God bless the worship team! Such a powerful presence today.' },
-    { id: 3, user: 'Pastor Chirs Amaechi', text: 'Welcome everyone joining us online today!' }
+    { id: 3, user: 'Pastor Chris Amaechi', text: 'Welcome everyone joining us online today!' }
   ])
 
   if (activeModal !== 'livestream') return null
 
-  const embedUrl = selectedSermon ? selectedSermon.videoUrl : settings.liveStreamUrl
+  const rawUrl = selectedSermon ? selectedSermon.videoUrl : settings.liveStreamUrl
+  const videoId = parseYouTubeVideoId(rawUrl)
+  const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`
+  const directWatchUrl = `https://www.youtube.com/watch?v=${videoId}`
 
   const handleSendChat = (e) => {
     e.preventDefault()
@@ -40,23 +49,35 @@ export default function LiveStreamModal() {
               {selectedSermon ? selectedSermon.title : 'The Tizo Nation Worship Service Live'}
             </h3>
           </div>
-          <button 
-            onClick={() => setActiveModal(null)}
-            style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '4px' }}
-          >
-            <X size={24} />
-          </button>
+          
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <a 
+              href={directWatchUrl} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="btn-outline-blue"
+              style={{ padding: '6px 14px', fontSize: '0.8rem', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+            >
+              Watch on YouTube <ExternalLink size={14} />
+            </a>
+            <button 
+              onClick={() => setActiveModal(null)}
+              style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '4px' }}
+            >
+              <X size={24} />
+            </button>
+          </div>
         </div>
 
         {/* Video & Chat Grid */}
         <div style={{ display: 'flex', flexWrap: 'wrap', background: '#000000' }}>
           {/* Left: Video Player */}
-          <div style={{ flex: 2, minWidth: '320px', aspectRatio: '16/9', background: '#000' }}>
+          <div style={{ flex: 2, minWidth: '320px', aspectRatio: '16/9', background: '#000', position: 'relative' }}>
             <iframe 
               src={embedUrl}
               title="Live Church Service"
               style={{ width: '100%', height: '100%', border: 'none' }}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
             ></iframe>
           </div>
@@ -118,20 +139,21 @@ export default function LiveStreamModal() {
           <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
             Speaker: {selectedSermon ? selectedSermon.speaker : 'Pastor Chris Amaechi'}
           </span>
-          <div style={{ display: 'flex', gap: '12px' }}>
+          <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+            <a 
+              href={directWatchUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ fontSize: '0.85rem', color: '#60A5FA', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+            >
+              Open on YouTube app / site <ExternalLink size={14} />
+            </a>
             <button 
               className="btn-outline-blue" 
               onClick={() => { setActiveModal('giving') }}
               style={{ padding: '6px 14px', fontSize: '0.85rem' }}
             >
               <Heart size={14} /> Give Online
-            </button>
-            <button 
-              className="btn-secondary" 
-              onClick={() => { setActiveModal('prayer') }}
-              style={{ padding: '6px 14px', fontSize: '0.85rem' }}
-            >
-              Request Prayer
             </button>
           </div>
         </div>
