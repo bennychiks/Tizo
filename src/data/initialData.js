@@ -6,7 +6,7 @@ export const INITIAL_SERMONS = [
     series: 'Kingdom Dominion',
     date: '2026-09-21',
     videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-    thumbnail: 'images/pastor_preaching.jpg',
+    thumbnail: 'images/lead_pastor.jpg',
     description: 'Discover what it means to step into your God-given authority and walk in purpose, victory, and unshakable faith every single day.',
     duration: '48 mins',
     tags: ['Faith', 'Authority', 'Victory']
@@ -42,7 +42,7 @@ export const INITIAL_SERMONS = [
     series: 'Revival Fire',
     date: '2026-08-31',
     videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-    thumbnail: 'images/worship_singing.jpg',
+    thumbnail: 'images/pastor_preaching.jpg',
     description: 'A deep dive into personal and corporate prayer. Learn how intimate fellowship with God unleashes his supernatural power in your life.',
     duration: '50 mins',
     tags: ['Prayer', 'Revival', 'Spiritual Growth']
@@ -162,7 +162,7 @@ export const INITIAL_MINISTRIES = [
     tagline: 'Taking the Gospel Beyond Walls',
     ageGroup: 'All Ages',
     leader: 'Evangelist Paul Stone',
-    image: 'images/pastor_preaching.jpg',
+    image: 'images/lead_pastor.jpg',
     description: 'Serving local communities with compassion drives and supporting international missionary initiatives across nations.'
   }
 ]

@@ -5,29 +5,29 @@ export default function AboutSection() {
   return (
     <section id="about" className="section-padding">
       <div className="grid-2" style={{ alignItems: 'center', marginBottom: '60px' }}>
-        {/* Left Image Spotlight */}
+        {/* Left Image Spotlight: Lead Pastor Portrait */}
         <div style={{ position: 'relative' }}>
           <div style={{
             position: 'relative',
             borderRadius: 'var(--radius-lg)',
             overflow: 'hidden',
-            boxShadow: 'var(--shadow-main)',
+            boxShadow: '0 20px 50px -10px rgba(37, 99, 235, 0.35)',
             border: '1px solid var(--border-blue)'
           }}>
             <img 
-              src="images/pastor_preaching.jpg" 
-              alt="Pastor preaching at The Tizo Nation Church Altar" 
-              style={{ width: '100%', height: '480px', objectFit: 'cover', display: 'block', objectPosition: 'top center' }}
+              src="images/lead_pastor.jpg" 
+              alt="Lead Pastor David Tizo" 
+              style={{ width: '100%', height: '520px', objectFit: 'cover', display: 'block', objectPosition: 'center 20%' }}
             />
             <div style={{
               position: 'absolute',
               inset: 0,
-              background: 'linear-gradient(0deg, rgba(6,11,24,0.92) 0%, transparent 60%)'
+              background: 'linear-gradient(0deg, rgba(6,11,24,0.95) 0%, rgba(6,11,24,0.2) 60%, transparent 100%)'
             }}></div>
-            <div style={{ position: 'absolute', bottom: '24px', left: '24px', right: '24px' }}>
-              <span className="badge-blue" style={{ marginBottom: '8px' }}>Senior Leadership & Preaching</span>
-              <h4 style={{ fontSize: '1.3rem', color: '#FFFFFF' }}>Pastor David Tizo</h4>
-              <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Lead Pastor, The Tizo Nation Church</p>
+            <div style={{ position: 'absolute', bottom: '28px', left: '28px', right: '28px' }}>
+              <span className="badge-blue" style={{ marginBottom: '8px' }}>Senior Leadership</span>
+              <h4 style={{ fontSize: '1.45rem', color: '#FFFFFF', fontWeight: 800 }}>Pastor David Tizo</h4>
+              <p style={{ fontSize: '0.9rem', color: '#60A5FA', fontWeight: 600 }}>Lead Pastor, The Tizo Nation Church</p>
             </div>
           </div>
         </div>
@@ -37,7 +37,7 @@ export default function AboutSection() {
           <span className="section-subtitle">Who We Are</span>
           <h2 className="section-title">A Nation Called to Illuminate the World</h2>
           <p style={{ color: 'var(--text-muted)', fontSize: '1.05rem', lineHeight: 1.7, marginBottom: '32px' }}>
-            At <strong>The Tizo Nation Church</strong>, we believe every individual has a God-ordained assignment. We are a multicultural, Spirit-filled church dedicated to preaching the uncompromised Word of God, cultivating genuine brotherhood, and equipping believers to lead in every sphere of life.
+            Under the leadership of <strong>Pastor David Tizo</strong>, The Tizo Nation Church is a vibrant, Spirit-filled kingdom community. We are dedicated to preaching the uncompromised Word of God, cultivating authentic fellowship, and equipping believers to fulfill their divine destiny.
           </p>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px' }}>
@@ -73,10 +73,10 @@ export default function AboutSection() {
         </div>
 
         <div className="grid-4">
+          <GalleryCard img="images/pastor_preaching.jpg" title="Preaching The Word" subtitle="Altar Ministry & Power" />
           <GalleryCard img="images/worship_hands_raised.jpg" title="Atmosphere of Prayer" subtitle="Deep Worship & Deliverance" />
           <GalleryCard img="images/congregation_joy.jpg" title="Joyful Fellowship" subtitle="Community & Sisterhood" />
           <GalleryCard img="images/worship_singing.jpg" title="Praise & Adoration" subtitle="Voices Raised As One" />
-          <GalleryCard img="images/gentleman_attentive.jpg" title="Attentive Discipleship" subtitle="Anchored in the Word" />
         </div>
       </div>
     </section>
