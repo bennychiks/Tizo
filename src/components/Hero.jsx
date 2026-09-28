@@ -118,7 +118,7 @@ export default function Hero() {
                 Next Service Countdown
               </span>
               <div style={{ fontSize: '0.95rem', fontWeight: 600, color: '#FFFFFF' }}>
-                Sunday Morning @ 9:00 AM
+                Sunday Morning @ 8:30 AM
               </div>
             </div>
 

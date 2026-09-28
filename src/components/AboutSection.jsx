@@ -16,7 +16,7 @@ export default function AboutSection() {
           }}>
             <img 
               src="images/lead_pastor.jpg" 
-              alt="Lead Pastor David Tizo" 
+              alt="LeadPastor Chris Amaechi" 
               style={{ width: '100%', height: '520px', objectFit: 'cover', display: 'block', objectPosition: 'center 20%' }}
             />
             <div style={{
@@ -26,7 +26,7 @@ export default function AboutSection() {
             }}></div>
             <div style={{ position: 'absolute', bottom: '28px', left: '28px', right: '28px' }}>
               <span className="badge-blue" style={{ marginBottom: '8px' }}>Senior Leadership</span>
-              <h4 style={{ fontSize: '1.45rem', color: '#FFFFFF', fontWeight: 800 }}>Pastor David Tizo</h4>
+              <h4 style={{ fontSize: '1.45rem', color: '#FFFFFF', fontWeight: 800 }}>Pastor Chris Amaechi</h4>
               <p style={{ fontSize: '0.9rem', color: '#60A5FA', fontWeight: 600 }}>Lead Pastor, The Tizo Nation Church</p>
             </div>
           </div>
@@ -37,7 +37,7 @@ export default function AboutSection() {
           <span className="section-subtitle">Who We Are</span>
           <h2 className="section-title">A Nation Called to Illuminate the World</h2>
           <p style={{ color: 'var(--text-muted)', fontSize: '1.05rem', lineHeight: 1.7, marginBottom: '32px' }}>
-            Under the leadership of <strong>Pastor David Tizo</strong>, The Tizo Nation Church is a vibrant, Spirit-filled kingdom community. We are dedicated to preaching the uncompromised Word of God, cultivating authentic fellowship, and equipping believers to fulfill their divine destiny.
+            Under the leadership of <strong>Pastor Chris Amaechi</strong>, The Tizo Nation Church is a vibrant, Spirit-filled kingdom community. We are dedicated to preaching the uncompromised Word of God, cultivating authentic fellowship, and equipping believers to fulfill their divine destiny.
           </p>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px' }}>

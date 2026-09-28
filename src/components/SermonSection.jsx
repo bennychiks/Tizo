@@ -31,7 +31,7 @@ export default function SermonSection() {
             <span className="section-subtitle">Media & Messages</span>
             <h2 className="section-title">Sermon Library</h2>
             <p className="section-desc" style={{ marginBottom: 0 }}>
-              Be inspired by life-transforming messages from Pastor David Tizo and guest speakers.
+              Be inspired by life-transforming messages from Pastor Chris Amaechi and guest speakers.
             </p>
           </div>
 

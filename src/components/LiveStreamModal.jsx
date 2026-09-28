@@ -8,7 +8,7 @@ export default function LiveStreamModal() {
   const [chatList, setChatList] = useState([
     { id: 1, user: 'Sister Angela', text: 'Amen! Watching live from Houston!' },
     { id: 2, user: 'Deacon Mark', text: 'God bless the worship team! Such a powerful presence today.' },
-    { id: 3, user: 'Pastor David Tizo', text: 'Welcome everyone joining us online today!' }
+    { id: 3, user: 'Pastor Chirs Amaechi', text: 'Welcome everyone joining us online today!' }
   ])
 
   if (activeModal !== 'livestream') return null
@@ -116,7 +116,7 @@ export default function LiveStreamModal() {
         {/* Footer Actions */}
         <div style={{ padding: '16px 24px', background: 'var(--bg-darker)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
           <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-            Speaker: {selectedSermon ? selectedSermon.speaker : 'Pastor David Tizo'}
+            Speaker: {selectedSermon ? selectedSermon.speaker : 'Pastor Chris Amaechi'}
           </span>
           <div style={{ display: 'flex', gap: '12px' }}>
             <button 

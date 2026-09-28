@@ -14,7 +14,12 @@ export const ChurchProvider = ({ children }) => {
   // Sermons
   const [sermons, setSermons] = useState(() => {
     const saved = localStorage.getItem('tizo_sermons')
-    return saved ? JSON.parse(saved) : INITIAL_SERMONS
+    if (saved) {
+      const parsed = JSON.parse(saved)
+      // Ensure 'sermon-1' Giving Leverage points to user's YouTube link https://www.youtube.com/embed/d86xD-j6bQ8
+      return parsed.map(s => s.id === 'sermon-1' ? { ...s, videoUrl: 'https://www.youtube.com/embed/d86xD-j6bQ8', title: 'Giving Leverage' } : s)
+    }
+    return INITIAL_SERMONS
   })
 
   // Events
@@ -44,7 +49,11 @@ export const ChurchProvider = ({ children }) => {
   // Site Settings
   const [settings, setSettings] = useState(() => {
     const saved = localStorage.getItem('tizo_settings')
-    return saved ? JSON.parse(saved) : INITIAL_SETTINGS
+    if (saved) {
+      const parsed = JSON.parse(saved)
+      return { ...parsed, liveStreamUrl: 'https://www.youtube.com/embed/d86xD-j6bQ8' }
+    }
+    return INITIAL_SETTINGS
   })
 
   // Admin Auth State

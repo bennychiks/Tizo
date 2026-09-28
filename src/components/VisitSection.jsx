@@ -116,9 +116,9 @@ export default function VisitSection() {
                 <div>
                   <label style={labelStyle}>Which Service?</label>
                   <select value={serviceChoice} onChange={(e) => setServiceChoice(e.target.value)} style={selectStyle}>
-                    <option value="Sunday 9:00 AM">Sunday 9:00 AM</option>
+                    <option value="Sunday 8:30 AM">Sunday 8:30 AM</option>
                     <option value="Sunday 11:00 AM">Sunday 11:00 AM</option>
-                    <option value="Wednesday 6:30 PM">Wednesday 6:30 PM</option>
+                    <option value="Wednesday 5:00 PM">Wednesday 5:00 PM</option>
                   </select>
                 </div>
 
