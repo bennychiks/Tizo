@@ -6,7 +6,7 @@ export const INITIAL_SERMONS = [
     series: 'Kingdom Dominion',
     date: '2026-09-21',
     videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-    thumbnail: 'https://images.unsplash.com/photo-1438232992991-995b7058bbb3?auto=format&fit=crop&w=800&q=80',
+    thumbnail: 'images/pastor_preaching.jpg',
     description: 'Discover what it means to step into your God-given authority and walk in purpose, victory, and unshakable faith every single day.',
     duration: '48 mins',
     tags: ['Faith', 'Authority', 'Victory']
@@ -18,7 +18,7 @@ export const INITIAL_SERMONS = [
     series: 'Foundations of Victory',
     date: '2026-09-14',
     videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-    thumbnail: 'https://images.unsplash.com/photo-1510519138161-58446232811f?auto=format&fit=crop&w=800&q=80',
+    thumbnail: 'images/worship_hands_raised.jpg',
     description: 'When trials arise, faith stands tall. Learn how anchoring your heart in God’s promises transforms uncertainty into breakthrough.',
     duration: '42 mins',
     tags: ['Faith', 'Hope', 'Encouragement']
@@ -30,7 +30,7 @@ export const INITIAL_SERMONS = [
     series: 'Unstoppable Purpose',
     date: '2026-09-07',
     videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-    thumbnail: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=800&q=80',
+    thumbnail: 'images/gentleman_attentive.jpg',
     description: 'You were not created by accident. Explore the divine blueprint for your life and step into your kingdom assignment.',
     duration: '55 mins',
     tags: ['Purpose', 'Calling', 'Destiny']
@@ -42,7 +42,7 @@ export const INITIAL_SERMONS = [
     series: 'Revival Fire',
     date: '2026-08-31',
     videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-    thumbnail: 'https://images.unsplash.com/photo-1445445290350-18a3b86e0b5b?auto=format&fit=crop&w=800&q=80',
+    thumbnail: 'images/worship_singing.jpg',
     description: 'A deep dive into personal and corporate prayer. Learn how intimate fellowship with God unleashes his supernatural power in your life.',
     duration: '50 mins',
     tags: ['Prayer', 'Revival', 'Spiritual Growth']
@@ -57,7 +57,7 @@ export const INITIAL_EVENTS = [
     time: '7:00 PM - 9:30 PM',
     location: 'Main Sanctuary',
     category: 'Worship',
-    image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80',
+    image: 'images/worship_hands_raised.jpg',
     description: 'An unforgettable evening of intense worship, prophetic ministry, and powerful prayer as we seek the presence of God together.'
   },
   {
@@ -67,17 +67,17 @@ export const INITIAL_EVENTS = [
     time: '10:00 AM - 4:00 PM',
     location: 'Youth Center & Auditorium',
     category: 'Youth',
-    image: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=800&q=80',
+    image: 'images/worship_singing.jpg',
     description: 'Empowering the next generation with divine purpose, dynamic speakers, live music performances, and interactive breakout workshops.'
   },
   {
     id: 'event-3',
-    title: 'Empowerment Women’s Breakfast',
+    title: 'Empowerment Women’s Fellowship',
     date: '2026-10-17',
     time: '9:00 AM - 12:00 PM',
     location: 'Fellowship Hall',
     category: 'Women',
-    image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80',
+    image: 'images/congregation_joy.jpg',
     description: 'A morning of fellowship, inspirational sharing, delicious breakfast, and prayer for women of all ages.'
   },
   {
@@ -87,7 +87,7 @@ export const INITIAL_EVENTS = [
     time: '1:00 PM - 5:00 PM',
     location: 'Tizo Community Pavilion',
     category: 'Outreach',
-    image: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=800&q=80',
+    image: 'images/gentleman_attentive.jpg',
     description: 'Demonstrating Christ’s love in practical ways by distributing groceries, health screenings, and prayer to local families.'
   }
 ]
@@ -126,7 +126,7 @@ export const INITIAL_MINISTRIES = [
     tagline: 'Nurturing Young Faith & Joy',
     ageGroup: 'Ages 0 - 11',
     leader: 'Pastor Linda Cole',
-    image: 'https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=800&q=80',
+    image: 'images/congregation_joy.jpg',
     description: 'A safe, fun, and Bible-centered environment where children learn God’s word through creative lessons, worship, and interactive activities.'
   },
   {
@@ -135,7 +135,7 @@ export const INITIAL_MINISTRIES = [
     tagline: 'Empowering Future Leaders',
     ageGroup: 'Middle & High School',
     leader: 'Minister Chris Evans',
-    image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80',
+    image: 'images/worship_singing.jpg',
     description: 'Equipping teenagers with authentic faith, strong biblical values, lifelong friendships, and mentorship for real-world impact.'
   },
   {
@@ -144,7 +144,7 @@ export const INITIAL_MINISTRIES = [
     tagline: 'Creating Environments of Divine Encounter',
     ageGroup: 'All Ages',
     leader: 'Minister Marcus Reed',
-    image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80',
+    image: 'images/worship_hands_raised.jpg',
     description: 'Using music, media, lighting, and performance arts to exalt God and lead the congregation into heartfelt worship.'
   },
   {
@@ -153,7 +153,7 @@ export const INITIAL_MINISTRIES = [
     tagline: 'Building Strong, Christ-Centered Homes',
     ageGroup: 'Adults & Families',
     leader: 'Deacon Sam & Mary Taylor',
-    image: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=800&q=80',
+    image: 'images/gentleman_attentive.jpg',
     description: 'Strengthening marriages and families through workshops, retreats, mentorship, and biblical guidance for healthy relationships.'
   },
   {
@@ -162,7 +162,7 @@ export const INITIAL_MINISTRIES = [
     tagline: 'Taking the Gospel Beyond Walls',
     ageGroup: 'All Ages',
     leader: 'Evangelist Paul Stone',
-    image: 'https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=800&q=80',
+    image: 'images/pastor_preaching.jpg',
     description: 'Serving local communities with compassion drives and supporting international missionary initiatives across nations.'
   }
 ]

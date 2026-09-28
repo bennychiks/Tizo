@@ -34,14 +34,14 @@ export default function Hero() {
 
   return (
     <section id="hero" style={{ position: 'relative', overflow: 'hidden', minHeight: '88vh', display: 'flex', alignItems: 'center' }}>
-      {/* Background Image Overlay */}
+      {/* Real Church Service Background Image */}
       <div style={{
         position: 'absolute',
         inset: 0,
-        backgroundImage: 'url("https://images.unsplash.com/photo-1438232992991-995b7058bbb3?auto=format&fit=crop&w=1920&q=80")',
+        backgroundImage: 'url("images/worship_hands_raised.jpg")',
         backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        filter: 'brightness(0.35) contrast(1.1)',
+        backgroundPosition: 'center 20%',
+        filter: 'brightness(0.38) contrast(1.15)',
         transform: 'scale(1.02)'
       }}></div>
 
@@ -49,7 +49,7 @@ export default function Hero() {
       <div style={{
         position: 'absolute',
         inset: 0,
-        background: 'radial-gradient(circle at 50% 30%, rgba(37, 99, 235, 0.28) 0%, rgba(6, 11, 24, 0.88) 60%, rgba(6, 11, 24, 0.98) 100%)'
+        background: 'radial-gradient(circle at 50% 30%, rgba(37, 99, 235, 0.3) 0%, rgba(6, 11, 24, 0.85) 60%, rgba(6, 11, 24, 0.98) 100%)'
       }}></div>
 
       <div className="section-padding" style={{ position: 'relative', zIndex: 10, width: '100%', paddingTop: '60px', paddingBottom: '60px' }}>
