@@ -1,20 +1,15 @@
 {
   "sermons": [
     {
-      "id": "sermon-1",
       "title": "Giving Leverage",
-      "speaker": "Pastor David Tizo",
-      "series": "Kingdom Dominion",
+      "speaker": "Pastor Chris Amaechi",
+      "series": "Giving",
       "date": "2026-09-21",
       "videoUrl": "https://www.youtube.com/embed/d86xD-j6bQ8",
-      "thumbnail": "https://images.unsplash.com/photo-1438232992991-995b7058bbb3?auto=format&fit=crop&w=800&q=80",
+      "thumbnail": "https://img.youtube.com/vi/d86xD-j6bQ8/hqdefault.jpg",
       "description": "Discover what it means to step into your God-given authority and walk in purpose, victory, and unshakable faith every single day.",
       "duration": "48 mins",
-      "tags": [
-        "Faith",
-        "Authority",
-        "Victory"
-      ]
+      "id": "sermon-1"
     },
     {
       "id": "sermon-2",
@@ -33,20 +28,15 @@
       ]
     },
     {
-      "id": "sermon-3",
-      "title": "Living with Purpose & Passion",
-      "speaker": "Apostle John Okoye",
-      "series": "Unstoppable Purpose",
+      "title": "Yefe Feh Part 4",
+      "speaker": "Pastor Chris Amaechi",
+      "series": "Yefefeh",
       "date": "2026-09-07",
-      "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-      "thumbnail": "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=800&q=80",
+      "videoUrl": "https://www.youtube.com/embed/XQd5mNYMNEc",
+      "thumbnail": "https://img.youtube.com/vi/XQd5mNYMNEc/hqdefault.jpg",
       "description": "You were not created by accident. Explore the divine blueprint for your life and step into your kingdom assignment.",
       "duration": "55 mins",
-      "tags": [
-        "Purpose",
-        "Calling",
-        "Destiny"
-      ]
+      "id": "sermon-3"
     },
     {
       "id": "sermon-4",
