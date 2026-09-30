@@ -1,6 +1,17 @@
 {
   "sermons": [
     {
+      "title": "Question & Answer Session",
+      "speaker": "Pastor Chris Amaechi",
+      "series": "The Holy Spirit",
+      "date": "2026-09-30",
+      "videoUrl": "https://www.youtube.com/embed/yv2BDG9C9Ic",
+      "thumbnail": "https://img.youtube.com/vi/yv2BDG9C9Ic/hqdefault.jpg",
+      "description": "",
+      "duration": "45 mins",
+      "id": "sermon-1790740477492"
+    },
+    {
       "title": "Giving Leverage",
       "speaker": "Pastor Chris Amaechi",
       "series": "Giving",
@@ -39,20 +50,15 @@
       "id": "sermon-3"
     },
     {
-      "id": "sermon-4",
-      "title": "Restoring the Altar of Prayer",
-      "speaker": "Pastor David Tizo",
-      "series": "Revival Fire",
+      "title": "The Motivation Bias",
+      "speaker": "Pastor Chris Amaechi",
+      "series": "Midweek",
       "date": "2026-08-31",
-      "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-      "thumbnail": "https://images.unsplash.com/photo-1445445290350-18a3b86e0b5b?auto=format&fit=crop&w=800&q=80",
+      "videoUrl": "https://www.youtube.com/embed/djrhHaqXjFA",
+      "thumbnail": "https://img.youtube.com/vi/djrhHaqXjFA/hqdefault.jpg",
       "description": "A deep dive into personal and corporate prayer. Learn how intimate fellowship with God unleashes his supernatural power in your life.",
       "duration": "50 mins",
-      "tags": [
-        "Prayer",
-        "Revival",
-        "Spiritual Growth"
-      ]
+      "id": "sermon-4"
     }
   ],
   "events": [
