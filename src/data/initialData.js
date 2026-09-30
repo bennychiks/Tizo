@@ -23,20 +23,15 @@ export const INITIAL_SERMONS = [
     "id": "sermon-1"
   },
   {
-    "id": "sermon-2",
-    "title": "The Power of Unshakable Faith",
-    "speaker": "Pastor Grace Tizo",
-    "series": "Foundations of Victory",
+    "title": "Yefe feh - Season Finale",
+    "speaker": "Pastor Chris Amaechi",
+    "series": "Yefefeh",
     "date": "2026-09-14",
     "videoUrl": "https://www.youtube.com/embed/1ss-ccxQi9g",
     "thumbnail": "https://img.youtube.com/vi/1ss-ccxQi9g/hqdefault.jpg",
     "description": "When trials arise, faith stands tall. Learn how anchoring your heart in God’s promises transforms uncertainty into breakthrough.",
     "duration": "42 mins",
-    "tags": [
-      "Faith",
-      "Hope",
-      "Encouragement"
-    ]
+    "id": "sermon-2"
   },
   {
     "title": "Yefe Feh Part 4",
