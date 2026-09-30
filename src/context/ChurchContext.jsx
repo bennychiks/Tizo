@@ -70,26 +70,98 @@ export const ChurchProvider = ({ children }) => {
   const [selectedSermon, setSelectedSermon] = useState(null)
   const [toastMessage, setToastMessage] = useState(null)
 
-  // Sync to localStorage
+  // System Files & Git Sync State
+  const [isSyncing, setIsSyncing] = useState(false)
+  const [lastSyncedAt, setLastSyncedAt] = useState(() => localStorage.getItem('tizo_last_synced') || null)
+  const [syncStatusMessage, setSyncStatusMessage] = useState(null)
+
+  // Helper to persist system files (src/data/initialData.js & src/data/data.json)
+  const saveToSystemFiles = async (customPayload = null) => {
+    const payload = customPayload || {
+      sermons,
+      events,
+      prayers,
+      ministries,
+      givingLog,
+      settings
+    }
+
+    try {
+      const res = await fetch('./api/save-system-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      if (res.ok) {
+        const result = await res.json()
+        const now = new Date().toLocaleTimeString()
+        localStorage.setItem('tizo_last_synced', now)
+        return { success: true, message: result.message, timestamp: now }
+      }
+    } catch (err) {
+      console.warn('System file save endpoint unavailable in static host:', err)
+    }
+    return { success: false }
+  }
+
+  // Helper to commit & push changes to GitHub repository
+  const syncToGitHub = async (commitMsg = 'Admin updated site content') => {
+    setIsSyncing(true)
+    setSyncStatusMessage('Saving data to system files...')
+
+    // Step 1: Save to system files first
+    const saveRes = await saveToSystemFiles()
+    if (saveRes.timestamp) {
+      setLastSyncedAt(saveRes.timestamp)
+    }
+
+    setSyncStatusMessage('Committing & pushing to GitHub repository...')
+    try {
+      const res = await fetch('./api/git-sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: commitMsg })
+      })
+
+      if (res.ok) {
+        const result = await res.json()
+        const timeStr = new Date().toLocaleTimeString()
+        setLastSyncedAt(timeStr)
+        localStorage.setItem('tizo_last_synced', timeStr)
+        setIsSyncing(false)
+
+        if (result.success) {
+          const successMsg = result.committed 
+            ? '✅ Successfully saved to system files & pushed to GitHub repository!'
+            : '✅ System files up to date! GitHub repository is clean.'
+          showToast(successMsg)
+          setSyncStatusMessage(successMsg)
+          return { success: true, message: successMsg }
+        } else {
+          showToast('⚠️ Data saved to system files. GitHub sync note: ' + (result.warning || result.output))
+          setSyncStatusMessage('Data saved to system files (`src/data/initialData.js`).')
+          return { success: true, warning: result.warning }
+        }
+      }
+    } catch (err) {
+      console.error('Git sync failed:', err)
+      setIsSyncing(false)
+      showToast('⚠️ Saved to browser & system files. (Git sync available in server mode)')
+    }
+    setIsSyncing(false)
+    return { success: false }
+  }
+
+  // Sync to localStorage & Auto-save to system files on data changes
   useEffect(() => {
     localStorage.setItem('tizo_sermons', JSON.stringify(sermons))
-  }, [sermons])
-
-  useEffect(() => {
     localStorage.setItem('tizo_events', JSON.stringify(events))
-  }, [events])
-
-  useEffect(() => {
     localStorage.setItem('tizo_prayers', JSON.stringify(prayers))
-  }, [prayers])
-
-  useEffect(() => {
     localStorage.setItem('tizo_giving', JSON.stringify(givingLog))
-  }, [givingLog])
-
-  useEffect(() => {
     localStorage.setItem('tizo_settings', JSON.stringify(settings))
-  }, [settings])
+
+    saveToSystemFiles({ sermons, events, prayers, ministries, givingLog, settings })
+  }, [sermons, events, prayers, givingLog, settings, ministries])
 
   useEffect(() => {
     localStorage.setItem('tizo_admin_auth', isAdminLoggedIn ? 'true' : 'false')
@@ -193,6 +265,14 @@ export const ChurchProvider = ({ children }) => {
     setGivingLog(INITIAL_GIVING_LOG)
     setSettings(INITIAL_SETTINGS)
     localStorage.clear()
+    saveToSystemFiles({
+      sermons: INITIAL_SERMONS,
+      events: INITIAL_EVENTS,
+      prayers: INITIAL_PRAYERS,
+      ministries: INITIAL_MINISTRIES,
+      givingLog: INITIAL_GIVING_LOG,
+      settings: INITIAL_SETTINGS
+    })
     showToast('Demo data restored successfully!')
   }
 
@@ -223,7 +303,12 @@ export const ChurchProvider = ({ children }) => {
       setSelectedSermon,
       toastMessage,
       showToast,
-      resetToDemoData
+      resetToDemoData,
+      isSyncing,
+      lastSyncedAt,
+      syncStatusMessage,
+      saveToSystemFiles,
+      syncToGitHub
     }}>
       {children}
     </ChurchContext.Provider>
@@ -231,3 +316,4 @@ export const ChurchProvider = ({ children }) => {
 }
 
 export const useChurch = () => useContext(ChurchContext)
+

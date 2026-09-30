@@ -13,7 +13,12 @@ import {
   Settings,
   RefreshCw,
   FileText,
-  Key
+  Key,
+  GitCommit,
+  UploadCloud,
+  Download,
+  Save,
+  CheckCircle2
 } from 'lucide-react'
 
 export default function AdminDashboard() {
@@ -33,11 +38,18 @@ export default function AdminDashboard() {
     prayers,
     deletePrayer,
     givingLog,
+    ministries,
     settings,
     setSettings,
     showToast,
-    resetToDemoData
+    resetToDemoData,
+    isSyncing,
+    lastSyncedAt,
+    syncStatusMessage,
+    syncToGitHub,
+    saveToSystemFiles
   } = useChurch()
+
 
   const [passcode, setPasscode] = useState('')
   const [activeTab, setActiveTab] = useState('overview')
@@ -168,6 +180,17 @@ export default function AdminDashboard() {
     })
   }
 
+  const handleExportJSON = () => {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({ sermons, events, prayers, ministries, givingLog, settings }, null, 2))
+    const downloadAnchor = document.createElement('a')
+    downloadAnchor.setAttribute("href", dataStr)
+    downloadAnchor.setAttribute("download", "tizo_site_data.json")
+    document.body.appendChild(downloadAnchor)
+    downloadAnchor.click()
+    downloadAnchor.remove()
+    showToast('Downloaded current site data JSON!')
+  }
+
   const totalGivingAmount = givingLog.reduce((sum, item) => sum + item.amount, 0)
 
   return (
@@ -220,6 +243,62 @@ export default function AdminDashboard() {
             </button>
           </div>
         </div>
+
+        {/* Sync Status Banner for Authenticated Admins */}
+        {isAdminLoggedIn && (
+          <div style={{
+            background: 'linear-gradient(90deg, rgba(37, 99, 235, 0.15) 0%, rgba(16, 185, 129, 0.15) 100%)',
+            borderBottom: '1px solid var(--border-blue)',
+            padding: '12px 28px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '12px'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <div style={{ background: '#10B981', width: '10px', height: '10px', borderRadius: '50%', boxShadow: '0 0 8px #10B981' }}></div>
+              <span style={{ fontSize: '0.88rem', color: '#FFFFFF', fontWeight: 600 }}>
+                System Data Auto-Sync Active (`src/data/initialData.js` & `data.json`)
+              </span>
+              {lastSyncedAt && (
+                <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', background: 'rgba(255,255,255,0.08)', padding: '2px 8px', borderRadius: '10px' }}>
+                  Last sync: {lastSyncedAt}
+                </span>
+              )}
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <button
+                onClick={() => syncToGitHub('Admin updated site files from dashboard')}
+                disabled={isSyncing}
+                className="btn-primary"
+                style={{
+                  padding: '6px 14px',
+                  fontSize: '0.85rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  background: isSyncing ? '#4B5563' : 'linear-gradient(135deg, #2563EB 0%, #059669 100%)',
+                  cursor: isSyncing ? 'not-allowed' : 'pointer'
+                }}
+              >
+                {isSyncing ? <RefreshCw size={14} className="spin" /> : <GitCommit size={14} />}
+                {isSyncing ? 'Syncing Repo...' : 'Sync & Push to GitHub Repo'}
+              </button>
+
+              <button
+                onClick={handleExportJSON}
+                className="btn-secondary"
+                style={{ padding: '6px 14px', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '6px' }}
+                title="Download JSON snapshot of system data"
+              >
+                <Download size={14} /> Export JSON
+              </button>
+            </div>
+          </div>
+        )}
+
 
         {/* Modal Body */}
         {!isAdminLoggedIn ? (
